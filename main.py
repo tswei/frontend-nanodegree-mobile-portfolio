@@ -14,12 +14,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import webapp2
+import os, webapp2, jinja2
+from webapp2_extras import routes
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Hello world!')
+template_dir = os.path.dirname(__file__)
+jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
+								autoescape = True)
+
+# HANDLERS
+class Handler(webapp2.RequestHandler):
+    def get(self, html):
+    	html = html + '.html'
+    	try:
+    		x = jinja_env.get_template(html)
+    	except:
+    		# change to redirect for url/uri match
+    		x = jinja_env.get_template("index.html")
+
+    	self.response.out.write(x.render())
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+	webapp2.Route(r'/<html:\w*><:(\.html$)?>', handler=Handler, name='html')
 ], debug=True)
