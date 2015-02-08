@@ -31,8 +31,10 @@ class Handler(webapp2.RequestHandler):
     		# change to redirect for url/uri match
     		x = jinja_env.get_template("index.html")
 
+
+    	# self.response.headers[""]
     	self.response.out.write(x.render())
 
 app = webapp2.WSGIApplication([
-	webapp2.Route(r'/<html:\w*><:(\.html$)?>', handler=Handler, name='html')
+	webapp2.Route(r'/<html:\w*-?(\w*)?><:(\.html$)?>', handler=Handler, name='html')
 ], debug=True)
