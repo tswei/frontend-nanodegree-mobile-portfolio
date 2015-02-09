@@ -24,12 +24,12 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 # HANDLERS
 class Handler(webapp2.RequestHandler):
     def get(self, html):
-    	html = html + '.html'
+    	html = html + '.min.html'
     	try:
     		x = jinja_env.get_template(html)
     	except:
     		# change to redirect for url/uri match
-    		x = jinja_env.get_template("index.html")
+    		x = jinja_env.get_template("index.min.html")
 
 
     	# self.response.headers[""]
