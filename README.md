@@ -1,5 +1,5 @@
-Website Performance Optimization portfolio project
-=====================================================
+### Website Performance Optimization portfolio project
+
 ### Project serving at http://alert-flames-849.appspot.com/
 
 ### Running Project Locally
@@ -17,7 +17,6 @@ $> dev_appserver /your-project-folder
 1. Previous method with SimpleHTTPSever is still vaild, but will not serve minified files.
 
 ### Serving Remotely
-App is hosted at http://alert-flames-849.appspot.com/
 
 1. Using Google App Engine
 - Install Google App Engine and add "alias appcfg='C:/PATH/appcfg.py'" to your ~/.bashrc
