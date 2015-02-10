@@ -1,5 +1,47 @@
-## Website Performance Optimization portfolio project
+Website Performance Optimization portfolio project
+=====================================================
+### Project serving at http://alert-flames-849.appspot.com/
 
+### Running Project Locally
+
+1. Using Google App Engine
+- Install Google App Engine and add "alias dev_appserver='C:/PATH/dev_appserver.py'" to your ~/.bashrc
+
+```bash
+$> cd path/to/
+$> dev_appserver /your-project-folder
+```
+
+- Open a browser and visit localhost:8080
+
+1. Previous method with SimpleHTTPSever is still vaild, but will not serve minified files.
+
+### Serving Remotely
+App is hosted at http://alert-flames-849.appspot.com/
+
+1. Using Google App Engine
+- Install Google App Engine and add "alias appcfg='C:/PATH/appcfg.py'" to your ~/.bashrc
+- Create a project on your Google App Engine Development Console at https://console.developers.google.com/project
+(requires Google Account)
+- Using "your-project-name" provided in Google App Engine Development Console
+- Configure your app.yaml file to include "application: your-project-name"
+
+```bash
+$> cd path/to/
+$> appcfg --oauth2 update /your-project-folder
+```
+
+- Open a browser and visit http://your-project-name.appspot.com/
+
+### Optimizations in main.js
+
+Two optimizations were made in main.js.
+
+Reducing load time for slider adjustment of size was achieved by reducing the number of queries to the page elements and moving static calculations outside the for loop iteration.
+
+Running consistently at, or above, 60 fps was achieved by calculating the phase the minimum number of times (5) to achieve the equivalent effect. The iteration over the 200 pizza elements then referenced the 5 phase calculations stored in an array using the iterator modulo 5.
+
+### OLD README
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository, inspect the code,
@@ -64,41 +106,3 @@ Feeling uninspired by the portfolio? Here's a list of cool portfolios I found af
 * <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
 * <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
 
-### Running Project Locally
-
-1. Using Google App Engine
-- Install Google App Engine and add "alias dev_appserver='C:/PATH/dev_appserver.py'" to your ~/.bashrc
-
-```bash
-$> cd path/to/
-$> dev_appserver /your-project-folder
-```
-
-- Open a browser and visit localhost:8080
-
-2. Previous method with SimpleHTTPSever is still vaild, but will not serve minified files.
-
-### Serving Remotely
-App is hosted at http://alert-flames-849.appspot.com/
-
-1. Using Google App Engine
-- Install Google App Engine and add "alias appcfg='C:/PATH/appcfg.py'" to your ~/.bashrc
-- Create a project on your Google App Engine Development Console at https://console.developers.google.com/project
-(requires Google Account)
-- Using "your-project-name" provided in Google App Engine Development Console
-- Configure your app.yaml file to include "application: your-project-name"
-
-```bash
-$> cd path/to/
-$> appcfg --oauth2 update /your-project-folder
-```
-
-Open a browser and visit http://your-project-name.appspot.com/
-
-### Optimizations in main.js
-
-Two optimizations were made in main.js.
-
-Reducing load time for slider adjustment of size was achieved by reducing the number of queries to the page elements and moving static calculations outside the for loop iteration.
-
-Running consistently at, or above, 60 fps was achieved by calculating the phase the minimum number of times (5) to achieve the equivalent effect. The iteration over the 200 pizza elements then referenced the 5 phase calculations stored in an array using the iterator modulo 5.
