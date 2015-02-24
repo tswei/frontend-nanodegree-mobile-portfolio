@@ -1,87 +1,124 @@
 module.exports = function(grunt) {
 
+	// load npm tasks listed in package.json
+	require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
+
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
-			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-			},
-			dynamic_mappings: {
-
-				files: [
-				{
+			build: {
+				files: [ {
 					expand: true,
-					cwd: '',
-					src: ['**/*.js', '!node_modules/**/*.js', '!Gruntfile.js'],
-					dest: '',
-					ext: '.min.js',
+					cwd: 'assets',
+					src: '**/*.js',
+					dest: 'build',
+					ext: '.js',
 					extDot: 'first'
-				},],
+				} ]
 			}
 		},
 		jshint: {
-			dynamic_mappings: {
-				files: [
-				{
+			build: {
+				files: [ {
 					expand: true,
-					cwd: '',
-					src: ['**/*.js', '!node_modules/**/*.js', '!Gruntfile.js'],
-				},],
+					cwd: 'assets',
+					src: '**/*.js',
+				} ]
 			}
 		},
 		cssmin: {
-			dynamic_mappings: {
-				files: [
-				{
+			build: {
+				files: [ {
+					expand: true,
+					cwd: 'assets',
+					src: '**/*.css',
+					dest: 'build',
+					ext: '.css',
+					extDot: 'first'
+				} ]
+			}
+		},
+		csslint: {
+			build: {
+				files: [ {
+					expand: true,
+					cwd: 'assets',
+					src: '**/*.css'
+				}]
+			}
+		},
+		htmlhint: {
+			build: {
+				options: {
+					'tag-pair' : true,
+					'tagname-lowercase' : true,
+					'attr-lowercase' : true,
+					'attr-value-double-quotes' : true,
+					'doctype-first' : true,
+					'spec-char-escape' : true,
+					'id-unique' : true,
+					'head-script-disabled' : true,
+					'img-alt-require' : true
+				},
+				files: {
 					expand: true,
 					cwd: '',
-					src: ['**/*.css', '!node_modules/**/*.css'],
-					dest: '',
-					ext: '.min.css',
-					extDot: 'first'
-				},],
+					src: ['assets/**/*.html', 'index.html'],
+				}
 			}
 		},
 		htmlmin: {
-			dynamic_mappings: {
-				files: [
-				{
+			build: {
+				files: [ {
 					expand: true,
 					cwd: '',
-					src: ['**/*.html', '!node_modules/**/*.html'],
-					dest: '',
+					src: ['assets/**/*.html', 'index.html'],
+					dest: 'build',
 					ext: '.min.html',
 					extDot: 'first'
 				},],
 			}
 		},
 		imagemin: {
-			dynamic_mappings: {
+			build: {
 				options: {
 					optimizationLevel: 3,
 					svgoPlugins: [{ removeViewBox: false}],
 				},
-				files: [
-				{
+				files: [ {
 					expand: true,
-					cwd: '',
-					src: ['**/*.{png,jpg,gif}', '!node_modules/**/*.{png,jpg,gif}'],
-					dest: '',
-				},],
+					cwd: 'assets',
+					src: ['**/*.{png,jpg,gif}'],
+					dest: 'build',
+				} ]
+			}
+		},
+		watch: {
+			html: {
+				files: ['index.html', 'assets/**/*.html'],
+				tasks: ['buildhtml']
+			},
+			js: {
+				files: ['assets/**/*.js'],
+				tasks: ['buildjs']
+			},
+			css: {
+				files: ['assets/**/*.css'],
+				tasks: ['buildcss']
+			},
+			img: {
+				files: ['assets/**/*.{png,jpg,gif}'],
+				tasks: ['buildimg']
 			}
 		}
 	});
 
-	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-csslint');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-htmlmin');
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
-
 	// Default task(s)
-	grunt.registerTask('default', ['uglify']);
+	grunt.registerTask('default', ['buildhtml', 'buildcss', 'buildjs', 'buildimg']);
+	grunt.registerTask('buildhtml', ['htmlhint', 'htmlmin']);
+	grunt.registerTask('buildcss', ['csslint', 'cssmin']);
+	grunt.registerTask('buildjs', ['jshint', 'uglify']);
+	grunt.registerTask('buildimg', ['imagemin']);
 
 };
