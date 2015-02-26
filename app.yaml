@@ -15,17 +15,14 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /css
-  static_dir: css
+- url: /build/css
+  static_dir: build/css
 
-- url: /js
-  static_dir: js
+- url: /build/js
+  static_dir: build/js
 
-- url: /img
-  static_dir: img
-
-- url: /views
-  static_dir: views
+- url: /build/img
+  static_dir: build/img
 
 - url: .*
   script: main.app

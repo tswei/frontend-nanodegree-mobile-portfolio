@@ -40,6 +40,17 @@ Reducing load time for slider adjustment of size was achieved by reducing the nu
 
 Running consistently at, or above, 60 fps was achieved by calculating the phase the minimum number of times (5) to achieve the equivalent effect. The iteration over the 200 pizza elements then referenced the 5 phase calculations stored in an array using the iterator modulo 5.
 
+Comments on my original solutions for areas of continued optimization included: use selector getElementsByClassName() instead of querySelectorAll(), assign each pizza a class and programamatically change the class style rather than individual pizza style, and reduce number of 200 pizzas to an amount shown on the screen.
+
+Changes were made for query selectors to getElementsByClassName in order to reduce query computation time.
+
+Exploring the possibility of using javascript to change a class in the css stylesheets for resizing the pizza yielded a less efficient result than iterating over all the pizzas. Average time to resize pizzas when changing class style was 0.86 ms while average time while iterating over the 100 elements and changing styles was 0.66 ms. Experimental code was left commented out in the js file without explanatory comments for additional constructive criticism on ways it could have been improved.
+
+Also exploring the class style change method for moving pizzas in the background lead to the conclusion that 40 seperate classes would be needed to replace the '.mover' class and effectively retain the same animation.
+Since there are 8 columns created by the moving pizzas, and there are 5 phases used to alter style, a repetative pattern would only be seen after 40 pizzas. This solution would only reduce the iteration by a marginal amount, and seen from the previous experiment, javascript is less time efficient in retrieving stylesheets to change class styles than performing assignment operations within iterators.
+
+The 200 pizzas were reduced in number to 40 pizzas, which will make the execution of iteration over items and assignment quicker than changing 40 stylesheet elements.
+
 ### OLD README
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 

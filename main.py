@@ -36,5 +36,5 @@ class Handler(webapp2.RequestHandler):
     	self.response.out.write(x.render())
 
 app = webapp2.WSGIApplication([
-	webapp2.Route(r'/<html:\w*-?(\w*)?><:(\.html$)?>', handler=Handler, name='html')
+	webapp2.Route(r'/<html:(build/html/)?\w*-?(\w*)?><:(\.html$)?>', handler=Handler, name='html')
 ], debug=True)

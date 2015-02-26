@@ -54,30 +54,30 @@ module.exports = function(grunt) {
 					'tag-pair' : true,
 					'tagname-lowercase' : true,
 					'attr-lowercase' : true,
-					'attr-value-double-quotes' : true,
+					'attr-value-double-quotes' : false,
 					'doctype-first' : true,
 					'spec-char-escape' : true,
 					'id-unique' : true,
 					'head-script-disabled' : true,
-					'img-alt-require' : true
+					'style-disabled' : true
 				},
-				files: {
+				files: [ {
 					expand: true,
 					cwd: '',
-					src: ['assets/**/*.html', 'index.html'],
-				}
+					src: ['assets/**/*.html', 'index.html']
+				} ]
 			}
 		},
 		htmlmin: {
 			build: {
 				files: [ {
 					expand: true,
-					cwd: '',
-					src: ['assets/**/*.html', 'index.html'],
+					cwd: 'assets',
+					src: ['**/*.html', '../index.html'],
 					dest: 'build',
 					ext: '.min.html',
 					extDot: 'first'
-				},],
+				} ]
 			}
 		},
 		imagemin: {

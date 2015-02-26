@@ -378,7 +378,7 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.src = "images/pizza.png";
+  pizzaImage.src = "../img/pizza.png";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -451,9 +451,33 @@ var resizePizzas = function(size) {
   
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    var reduceQuery = document.querySelectorAll(".randomPizzaContainer");
+    // moved query outside of for loop to reduce the number of calls for the same array
+    // changed querySelectAll to getElementsByClass name to reduce number of queries
+    var reduceQuery = document.getElementsByClassName("randomPizzaContainer");
     var dx = determineDx(reduceQuery[0], size);
+    // move computations outside for loop as it produces the same result regardless of pizza
+    // this will reduce computational workload and decrease time to resize pizzas
     var newwidth = (reduceQuery[0].offsetWidth + dx) + 'px';
+
+    //
+    /*var styleSheets = document.styleSheets;
+    var cssRuleCode = document.all ? 'rules' : 'cssRules';
+    var re = /^http.*pizza-style.css$/;
+    for (var k = 0; k < styleSheets.length; k ++) {
+      if (re.test(styleSheets[k].href)) {
+        var ruleList = styleSheets[k][cssRuleCode];
+        var reSelector = /^\.randomPizzaContainer/;
+        for (var l = 0; l < ruleList.length; l++) {
+          if (reSelector.test(ruleList[l].selectorText)) {
+            ruleList[l].style.width = newwidth;
+          }
+        }
+      }
+    }*/
+
+
+
+
     for (var i = 0; i < reduceQuery.length; i++) {
       reduceQuery[i].style.width = newwidth;
     }
@@ -504,17 +528,36 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.getElementsByClassName('.mover');
+  // change from querying all elements to only elements with class name "mover"
+  // optimization will reduce computational effort
+  // var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName('mover');
 
   // calculate phases outside of pizza update loop to reduce computational workload
   // since pizza phases have only 5 positions, push to array and reference array to
   // update pizza position
-
   var phases = [];
   for (var i = 0; i < 5; i++) {
     phases[i] = Math.sin((document.body.scrollTop / 1250) + (i % 5));
   }
 
+  /*var styleSheets = document.styleSheets;
+  var cssRuleCode = document.all ? 'rules' : 'cssRules';
+  var re = /^http.*pizza-style.css$/;
+  for (var k = 0; k < styleSheets.length; k ++) {
+    if (re.test(styleSheets[k].href)) {
+      var ruleList = styleSheets[k][cssRuleCode];
+      var reSelector = /^\.mover(\d)/;
+      for (var l = 0; l < ruleList.length; l++) {
+        var array = reSelector.exec(ruleList[l].selectorText);
+        if (array) {
+          ruleList[l].style.left = item.basicLeft + 100 * phases[array[1]] + 'px';
+        }
+      }
+    }
+  }*/
+
+   
   for (var j = 0; j < items.length; j++) {
     items[j].style.left = items[j].basicLeft + 100 * phases[j % 5] + 'px';
   }
@@ -537,10 +580,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var windowheight = window.innerHeight;
-  for (var i = 0; i < 200; i++) {
+  // reduce number of pizzas from 200 to 40 as 200 pizzas are not visible on screen
+  // this will reduce the effective loop size and reduce calculation time
+  for (var i = 0; i < 40; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza.png";
+    // elem.className = 'mover + (i % 5);
+    elem.src = "../img/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
