@@ -1,0 +1,19 @@
+{
+  "name": "neighborhood-map",
+  "version": "0.1.0",
+  "author": "tswei",
+  "private": "true",
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "jquery": "~2.1.4",
+    "knockout": "~3.3.0",
+    "offline": "~0.7.11"
+  },
+  "homepage": "https://github.com/tswei/neighborhood-map",
+  "authors": [
+    "tsimawei <turner.simawei@gmail.com>"
+  ],
+  "description": "google-maps based location of services",
+  "appPath": "assets",
+  "moduleName": "neighborhoodApp"
+}

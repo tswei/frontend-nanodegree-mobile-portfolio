@@ -14,27 +14,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os, webapp2, jinja2
+import os, webapp2, jinja2, logging
 from webapp2_extras import routes
 
-template_dir = os.path.dirname(__file__)
+template_dir = os.path.dirname(__file__) + '/build/views'
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 								autoescape = True)
 
 # HANDLERS
 class Handler(webapp2.RequestHandler):
     def get(self, html):
-    	html = html + '.min.html'
+        logging.exception(html)
+    	html = html + '.html'
     	try:
     		x = jinja_env.get_template(html)
     	except:
     		# change to redirect for url/uri match
-    		x = jinja_env.get_template("index.min.html")
+    		x = jinja_env.get_template("index.html")
 
 
     	# self.response.headers[""]
     	self.response.out.write(x.render())
 
 app = webapp2.WSGIApplication([
-	webapp2.Route(r'/<html:(build/html/)?\w*-?(\w*)?><:(\.html$)?>', handler=Handler, name='html')
+	webapp2.Route(r'/<html:(build/views/)?\w*-?(\w*)?><:(\.html$)?>', handler=Handler, name='html')
 ], debug=True)

@@ -63,7 +63,7 @@ Contact is through GitHub @tswei.
 
 ## History
 
-This is the first version of this project. Reference sources for code snippets or logistics are contained in SOURCES.md
+This project originated as a [Udacity Front End Nanodegree Project](https://github.com/udacity/frontend-nanodegree-mobile-portfolio).
 
 ## List of Authors
 
