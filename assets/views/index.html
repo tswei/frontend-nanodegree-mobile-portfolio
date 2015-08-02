@@ -7,15 +7,11 @@
     <meta name="author" content=" FILL ME IN ">
     <title>Cameron Pittman: Portfolio</title>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
     <script type="text/javascript">
-      // script to immediately fetch fonts and unblock render tree
-      // obtained from Ilya Grigorik https://www.igvita.com/2014/01/31/optimizing-web-font-rendering-performance/
-      var font = new FontFace("Open Sans", "url(http://fonts.googleapis.com/css?family=Open+Sans&subset=latin:400,700)", {});
-      font.load();
-      font.ready().then(function() {
-        document.fonts.add(font);
-        document.body.style.fontFamily = "Open Sans, sans-serif";
+      WebFont.load({
+        google: {
+          families: ['Open Sans:400,700']
+        }
       });
     </script>
     <style>
@@ -70,14 +66,6 @@
       }
     </style>
 
-    <script>
-      (function(w,g){w['GoogleAnalyticsObject']=g;
-      w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
-
-      // TODO: replace with your Google Analytics profile ID.
-      ga('create', 'UA-XXXX-Y');
-      ga('send', 'pageview');
-    </script>
     <script async src="http://www.google-analytics.com/analytics.js"></script>
     <!-- build:js(./assets/) scripts/perfmatters.js -->
     <script async src="scripts/perfmatters.js"></script>
@@ -130,19 +118,6 @@
     <footer>
       <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
     </footer>
-    <script>
-    // Script to retrieve css file for below the fold style rendering
-    // Code obtained from Google https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery
-      var cb = function() {
-        var l = document.createElement('link'); l.rel = 'stylesheet';
-        l.href = 'styles/style.css';
-        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
-      };
-      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-          webkitRequestAnimationFrame || msRequestAnimationFrame;
-      if (raf) raf(cb);
-      else window.addEventListener('load', cb);
-    </script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -151,5 +126,21 @@
     <script src="bower_components/offline/offline.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+
+    <script>
+    $('head').append('<link href="styles/style.css" rel="stylesheet">');
+    </script>
+
+    <script>
+      // var cb = function() {
+      //   var l = document.createElement("link'); l.rel = 'stylesheet';
+      //   l.href = 'styles/style.css';
+      //   var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+      // };
+      // var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+      //     webkitRequestAnimationFrame || msRequestAnimationFrame;
+      // if (raf) raf(cb);
+      // else window.addEventListener('load', cb);
+    </script>
   </body>
 </html>

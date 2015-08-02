@@ -32,7 +32,6 @@ class Handler(webapp2.RequestHandler):
     		# change to redirect for url/uri match
     		x = jinja_env.get_template("index.html")
 
-
     	# self.response.headers[""]
     	self.response.out.write(x.render())
 

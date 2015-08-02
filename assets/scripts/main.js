@@ -591,3 +591,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   updatePositions();
 });
+
+/* exported resizePizzas */
